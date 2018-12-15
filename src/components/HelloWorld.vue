@@ -1,47 +1,54 @@
 <template>
 <div class="hello">
-    <b-container>
-        <b-row>
-            <b-col md='4' offset-md="8">
-                <b-form-select v-model="selected" :options="lang" class="mb-3" />
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col md='6' v-for="(item, index) in dataImage" v-bind:key="index">
-                <div class="wrapper" @click='showModal(item.id)'>
-                        <img v-if="isMobile" class="img-fluid" :src="`../../static/images/${item.image_mobile}`">
-                    <img v-else class="img-fluid" :src="`../../static/images/${item.image}`">
-                    <h3 v-if="selected==='ind'">{{item.title.id}}</h3>
-                    <h3 v-else-if="selected==='eng'">{{item.title.en}}</h3>
-                    <h3 v-else-if="selected==='jap'">{{item.title.ja}}</h3>
-                </div>
-            </b-col>
-        </b-row>
-    </b-container>
-    <b-modal id="modal1" title="Bootstrap-Vue" ref="myModalRef">
-        <b-carousel id="carousel1"
-                    controls
-                    indicators
-                    background="#ababab"
-                    :interval="4000"
-                    img-width="1024"
-                    img-height="480"
-                    v-model="slide"
-                    @sliding-start="onSlideStart"
-                    @sliding-end="onSlideEnd">
-            <b-carousel-slide 
-                v-if="isMobile"
-                v-for="(test, index) in dataImage" 
-                v-bind:key="index" 
-                :img-src="`../../static/images/${test.image_mobile}`">
-            </b-carousel-slide>
-            <b-carousel-slide 
-                v-for="(test, index) in dataImage" 
-                v-bind:key="index" 
-                :img-src="`../../static/images/${test.image}`">
-            </b-carousel-slide>
-        </b-carousel>
-    </b-modal>
+    <div v-if='error === false'>
+        <b-container>
+            <b-row>
+                <b-col md='4' offset-md="8">
+                    <b-form-select v-model="selected" :options="lang" class="mb-3" />
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col md='6' v-for="(item, index) in dataImage" v-bind:key="index">
+                    <div class="wrapper" @click='showModal(item.id)'>
+                            <img v-if="isMobile" class="img-fluid" :src="`../../static/images/${item.image_mobile}`">
+                        <img v-else class="img-fluid" :src="`../../static/images/${item.image}`">
+                        <h3 v-if="selected==='ind'">{{item.title.id}}</h3>
+                        <h3 v-else-if="selected==='eng'">{{item.title.en}}</h3>
+                        <h3 v-else-if="selected==='jap'">{{item.title.ja}}</h3>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
+        <b-modal id="modal1" title="Bootstrap-Vue" ref="myModalRef">
+            <b-carousel id="carousel1"
+                        controls
+                        indicators
+                        background="#ababab"
+                        :interval="4000"
+                        img-width="1024"
+                        img-height="480"
+                        v-model="slide"
+                        @sliding-start="onSlideStart"
+                        @sliding-end="onSlideEnd">
+                <b-carousel-slide 
+                    v-if="isMobile"
+                    v-for="(test, index) in dataImage" 
+                    v-bind:key="index" 
+                    :img-src="`../../static/images/${test.image_mobile}`">
+                </b-carousel-slide>
+                <b-carousel-slide 
+                    v-for="(test, index) in dataImage" 
+                    v-bind:key="index" 
+                    :img-src="`../../static/images/${test.image}`">
+                </b-carousel-slide>
+            </b-carousel>
+        </b-modal>
+    </div>
+    <div v-else>
+        <h1>
+            Error Getting Data :(
+        </h1>
+    </div>
 </div>
 </template>
 
