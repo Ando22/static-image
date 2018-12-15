@@ -41,6 +41,7 @@
                     v-bind:key="index" 
                     :img-src="`../../static/images/${test.image}`">
                 </b-carousel-slide>
+                {{slides}}
             </b-carousel>
         </b-modal>
     </div>
